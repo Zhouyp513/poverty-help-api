@@ -1,0 +1,42 @@
+## Eclipse
+.project
+.metadata
+.classpath
+.settings/
+.loadpath
+
+## Maven
+target/
+**/target/
+
+## Idea
+.idea/
+*.iml
+#*.yml
+
+## Mac crap
+.DS_Store
+
+#日志文件忽略
+/logs/
+**/logs/
+
+##cache
+cache/
+tmp/
+/node_modules/
+**/node_modules/*
+/dist/
+**/dist/*
+
+*.log
+*.out
+*.tar.gz
+*.gz
+*.zip
+
+## uniapp crap
+.hbuilderx/
+/unpackage/
+/uni_modules/
+

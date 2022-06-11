@@ -1,0 +1,113 @@
+server:
+  port: 9002
+tomcat:
+  max-swallow-size: 500MB #配置tomcat级别的文件上传大小限制
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 500MB #最大文件大小
+      max-request-size: 500MB #最大请求大小
+  http:
+    servlet:
+      multipart:
+        max-file-size: 500MB
+        max-request-size: 500MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  aop:
+    auto: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    platform: mysql
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    # 初始化大小，最小，最大
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    # 配置拿到连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+    druidMonitorUserName: admin
+    druidMonitorPassword: 123456
+    connectionInitSQLs:
+      - set names utf8mb4 #初始化SQL
+mybatis:
+  type-aliases-package: cn.poverty.repository.entity #设置包别名
+  configuration:
+    map-underscore-to-camel-case: true #开启字段的驼峰映射
+mapper:
+  mappers: cn.poverty.common.config.BaseRepository #扫描的是统用的mapper(repository)
+  not-empty: false
+  identity: MYSQL
+pagehelper:
+  helperDialect: mysql
+  reasonable: false
+  supportMethodsArguments: true
+  params: count=countSql
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ['httptrace', 'metrics']
+auth: #管理系统权限模块存储前缀
+  cache-prefix: auth-user
+  expiredTime: 120 #设定过期时间为2个小时
+  # 是否异步记录用户操作日志
+  openAopLog: true
+  shiro:
+    # 后端不需要认证接口url集合
+    anonUrlList:
+      - /api/v1/authUser/authUserLogin
+      - /api/v1/authUser/logOut
+      - /api/v1/authUser/register
+      - /actuator/**
+      - /api/v1/auth/**
+      - /api/v1/authUser/checkUserName
+      - /api/v1/authUser/queryAllAuthRole
+  #开始自动重启
+  #devtools:
+  #  restart:
+  #    enabled: true
+baseConstant:
+  constant:
+    unDeleteStatus: 2 #未删除状态
+    deleteStatus: 1 #删除状态
+    originAuthLevel: 2 #系统级别最高权限   1否  2是
+    noOriginAuthLevel: 1 #系统级别最高权限   1否  2是
+    defaultPassword: 123456
+    localhostIp: 127.0.0.1 #本地IP
+    appAuthTokenPrefix: app.auth.token #APP的token前缀
+  aliCloud:
+    secretId: LTAI5tQYaHj1DcV2T4KCQAyu #阿里云的secretId
+    secretKey: fovmf3i1k2sJRtOmoz4ZCbQBDMpFwc #阿里云的secretKey
+    message:
+      messageSendUrl: dysmsapi.aliyuncs.com #后台系统API阿里短信发送请求地址
+      messageSignName: 扶贫 #后台系统API阿里短信短信模名称aliMessageTemplateName
+      corpOpenAccCode: SMS_2158212729 #通知短信模版code-企业开户通知
+      auditResultCode: SMS_2174238014 #通知短信模版code-流程审核结果通知
+      needAuditCode: SMS_217408350 #通知短信模版code-存在待处理的流程通知
+    oss:
+      secretId: LTAI5tQYaHj1DcV2T4KCQAyu #阿里云OSS的secretId
+      secretKey: fovmf3i1k2sJRtOmoz4ZCbQBDMpFwc #阿里云OSS的secretKey
+      endPoint: oss-cn-chengdu.aliyuncs.com #阿里OSS成都区域节点配置
+      bucketName: ant-fun-web #阿里OSS的Bucket的名称
+      prefix: http://ant-fun-web.oss-cn-chengdu.aliyuncs.com/ #文件固定前缀

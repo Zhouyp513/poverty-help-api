@@ -1,0 +1,41 @@
+package cn.poverty.repository.repository;
+import cn.poverty.common.config.BaseRepository;
+import cn.poverty.repository.entity.ReliefFundApply;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
+
+import java.util.List;
+
+/**
+ * @author
+ * @projectName poverty-help-api
+ * @Description: 扶贫资金申请表Repository
+ * @date 2019-08-29
+ */
+@Mapper
+public interface ReliefFundApplyRepository extends BaseRepository<ReliefFundApply>{
+
+
+
+    /**
+     * 根据业务主键批量删除
+     * @title: AuthRoleRepository.java
+
+     * @date 2019/4/28 11:05
+     * @param mainIdList 业务主键ID集合
+     * @param deleteStatus 是否删除 1 删除 2 未删除
+     * @return List
+     */
+    @Update("<script>" +
+            " UPDATE relief_fund item set item.delete_status = #{deleteStatus} " +
+            " WHERE item.relief_fund_id IN " +
+            " <foreach collection='mainIdList' item= 'item' index= 'index' open='(' separator=',' close=')' > " +
+            "          #{item} " +
+            " </foreach>" +
+            "</script>")
+    void batchUpdateDeleteStatus(@Param("deleteStatus") Integer deleteStatus,
+                                 @Param("mainIdList") List<String> mainIdList);
+
+
+}

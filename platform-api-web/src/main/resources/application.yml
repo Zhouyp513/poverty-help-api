@@ -1,0 +1,31 @@
+name: poverty-help-api
+spring:
+  profiles:
+    active: dev
+---
+spring:
+  profiles: dev
+  datasource:
+    #url: jdbc:mysql://42.192.42.199:3306/poverty-help-show?useUnicode=true&characterEncoding=utf-8&useSSL=false&tcpRcvBuf=1024000&autoReconnect=true&failOverReadOnly=false&connectTimeout=0&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    #userName: poverty-help-show
+    #password: 123456
+    url: jdbc:mysql://localhost:3306/poverty-help-show?useUnicode=true&characterEncoding=utf-8&useSSL=false&tcpRcvBuf=1024000&autoReconnect=true&failOverReadOnly=false&connectTimeout=0&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+    userName: root
+    password: 123
+  redis:
+#    host: 42.193.17.167
+    host: 192.168.152.130
+#    port: 6301
+    port: 7001
+    password: Por*Rd@189
+    timeout: 120000
+    readTimeout: 120000
+    database: 2
+    jedis:
+      pool:
+        min-idle: 8
+        max-idle: 500
+        max-active: 2000
+        max-wait: 60000
+locationTemp: /Users/singer/data #上传文件的临时目录
+

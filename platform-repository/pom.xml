@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>poverty-help-api</artifactId>
+        <groupId>cn.poverty.main</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <description>管理平台repository层</description>
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>jar</packaging>
+    <artifactId>platform-repository</artifactId>
+    <version>${project.build.version}</version>
+
+    <dependencies>
+        <dependency>
+            <artifactId>platform-common</artifactId>
+            <groupId>cn.poverty.main</groupId>
+            <version>${project.build.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
